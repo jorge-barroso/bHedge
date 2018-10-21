@@ -20,7 +20,7 @@ def login():
     if not json:
         return err_400()
 
-    name_email = json.get('name_email')
+    name_email = json.get('username')
     password = json.get('password')
 
     if not (name_email and password):
@@ -32,12 +32,11 @@ def login():
         field = "email"
     else:
         field = "username"
-    
+
     cursor.execute("SELECT u.id, u.username, u.email, u.password, u.address, u.personal_balance  FROM user u LEFT JOIN transaction t on t.user = u.id WHERE u."+field+" = %s", (name_email,))
 
     user = cursor.fetchone()
 
-    print(bcrypt.hashpw(password.encode('utf8'), user[3].encode('utf8')))
     if not bcrypt.hashpw(password.encode('utf8'), user[3].encode('utf8')) == user[3].encode('utf8'):
         return '', 401
 
@@ -47,7 +46,7 @@ def login():
     """
         In this case we want to place an order with these funds on BitMEX
     """
-    cursor.execute("UPDATE user u SET u.personal_balance = u.personal_balance + %d", (balance,))
+    cursor.execute("UPDATE user u SET u.personal_balance = u.personal_balance + %s", (balance,))
 
     user += (balance,)
 
@@ -62,7 +61,7 @@ def register():
     username = json.get('username')
     email = json.get('email')
     password = json.get('password')
-    
+
     if not (username and email and password):
         return err_400()
 
@@ -97,7 +96,7 @@ def add_record():
 
     cursor = db.cursor()
     cursor.execute("INSERT INTO transaction (user, type, usd_amount, btc_amount, market_diff) VALUES (%s, %s, %s, %s, %s)", (user_id, transaction_type, usd, btc, difference))
-    
+
     cursor.execute("SELECT * FROM user u WHERE id = %d", (user_id,))
     user = cursor.fetchone()
 
@@ -108,10 +107,13 @@ def add_record():
         "secret":user[7]
     })
 
+    type = ""
     if transaction_type == "BUY":
-        client.create_order("BTC", "Market", "SELL", total_balance)
+        type = "SELL"
     else:
-        client.create_order("BTC", "Market", "BUY", total_balance)
+        type = "BUY"
+
+        client.create_order("BTC", "Market", type, total_balance)
 
     db.commit()
     return ''
