@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "BtHedge", "BtHedge\BtHedge.pyproj", "{66035346-3AEE-4B96-A21C-49BB963A4E54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{66035346-3AEE-4B96-A21C-49BB963A4E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66035346-3AEE-4B96-A21C-49BB963A4E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66035346-3AEE-4B96-A21C-49BB963A4E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66035346-3AEE-4B96-A21C-49BB963A4E54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3945357A-238C-40DE-9B40-30E32000ED83}
+	EndGlobalSection
+EndGlobal
